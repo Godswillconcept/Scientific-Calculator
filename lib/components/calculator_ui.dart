@@ -164,7 +164,7 @@ class _CalculatorUiState extends State<CalculatorUi> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
+            padding: const EdgeInsets.only(bottom: 25.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

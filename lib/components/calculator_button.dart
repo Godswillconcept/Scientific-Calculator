@@ -8,7 +8,7 @@ class CalculatorButton extends StatelessWidget {
   final String btnVal;
   final double btnHeight;
   final double btnWidth;
-  final void Function()? function;
+  final Function()? function;
   const CalculatorButton({
     Key? key,
     required this.btnColor,
