@@ -8,20 +8,20 @@ class CalculatorButton extends StatelessWidget {
   final String btnVal;
   final double btnHeight;
   final double btnWidth;
-  final Function()? function;
+  final Function()? onPress;
   const CalculatorButton({
     Key? key,
     required this.btnColor,
     required this.btnVal,
     this.btnHeight = 50.0,
     this.btnWidth = 50.0, 
-    required this.function,
+    required this.onPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: function,
+      onTap: onPress,
       child: Container(
         width: btnWidth,
         height: btnHeight,
