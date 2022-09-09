@@ -8,7 +8,7 @@ class LogicButton extends StatelessWidget {
   final double btnHeight;
   final double btnWidth;
   final double valSize;
-  final void Function()? function;
+  final void Function()? onPress;
   const LogicButton(
       {Key? key,
       required this.btnColor,
@@ -16,13 +16,13 @@ class LogicButton extends StatelessWidget {
       this.btnHeight = 25.0,
       this.btnWidth = 50.0,
       this.valSize = 22.0,
-      required this.function})
+      required this.onPress})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: function,
+      onTap: onPress,
       child: Container(
         width: btnWidth,
         height: btnHeight,

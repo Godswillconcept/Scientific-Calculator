@@ -29,11 +29,11 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right:8.0),
-                  child: LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'DEG', function: () {  },),
+                  child: LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'DEG', onPress: () {  },),
                 ),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'CLS', function: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'CLS', onPress: () {  },),
                 Spacer(flex: 1,),                
-                LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'ON', function: () {  },),
+                LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'ON', onPress: () {  },),
               ],
             ),
           ),
@@ -42,12 +42,12 @@ class _CalculatorUiState extends State<CalculatorUi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'n!', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sqrt', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '(', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: ')', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '^', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cbrt', function: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'n!', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sqrt', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '(', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: ')', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '^', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cbrt', onPress: () {  },),
               ],
             ),
           ),
@@ -56,12 +56,12 @@ class _CalculatorUiState extends State<CalculatorUi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'log', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'x2', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'hyp', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sin', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cos', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'tan', function: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'log', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'x2', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'hyp', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sin', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cos', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'tan', onPress: () {  },),
               ],
             ),
           ),
@@ -70,12 +70,12 @@ class _CalculatorUiState extends State<CalculatorUi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'Ran', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'In', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MS', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MC', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M-', function: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M+', function: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'Ran', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'In', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MS', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MC', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M-', onPress: () {  },),
+                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M+', onPress: () {  },),
               ],
             ),
           ),
@@ -86,23 +86,23 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '7', function: () {  },
+                  btnVal: '7', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '8', function: () {  },
+                  btnVal: '8', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '9', function: () {  },
+                  btnVal: '9', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.tertiaryBtn,
-                  btnVal: 'DEL', function: () {  },
+                  btnVal: 'DEL', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.tertiaryBtn,
-                  btnVal: 'AC', function: () {  },
+                  btnVal: 'AC', onPress: () {  },
                 ),
               ],
             ),
@@ -114,23 +114,23 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '4', function: () {  },
+                  btnVal: '4', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '5', function: () {  },
+                  btnVal: '5', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '6', function: () {  },
+                  btnVal: '6', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'X', function: () {  },
+                  btnVal: 'X', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '/', function: () {  },
+                  btnVal: '/', onPress: () {  },
                 ),
               ],
             ),
@@ -142,23 +142,23 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '1', function: () {  },
+                  btnVal: '1', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '2', function: () {  },
+                  btnVal: '2', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '3', function: () {  },
+                  btnVal: '3', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '+', function: () {  },
+                  btnVal: '+', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '-', function: () {  },
+                  btnVal: '-', onPress: () {  },
                 ),
               ],
             ),
@@ -170,23 +170,23 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '0', function: () {  },
+                  btnVal: '0', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '.', function: () {  },
+                  btnVal: '.', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'Exp', function: () {  },
+                  btnVal: 'Exp', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'Ans', function: () {  },
+                  btnVal: 'Ans', onPress: () {  },
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '=', function: () {  },
+                  btnVal: '=', onPress: () {  },
                 ),
               ],
             ),
