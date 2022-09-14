@@ -2,8 +2,8 @@
 
 import 'package:calculator/utils/color_guide.dart';
 import 'package:calculator/components/calculator_button.dart';
-import 'package:calculator/components/calculator_screen.dart';
 import 'package:calculator/components/logic_button.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorUi extends StatefulWidget {
@@ -14,6 +14,100 @@ class CalculatorUi extends StatefulWidget {
 }
 
 class _CalculatorUiState extends State<CalculatorUi> {
+  String equation = '0';
+  String result = '0';
+  String memory = "";
+  void btnOnClick(String btnVal) {
+    debugPrint(btnVal);
+    setState(() {
+      if (btnVal == 'CLS') {
+        equation = "0";
+        result = "0";
+      } else if (btnVal == 'DEL') {
+        equation = equation.substring(0, equation.length - 1);
+        if (equation.isEmpty) {
+          equation = "0";
+          result = "0";
+        }
+      } else if (btnVal == 'n!') {
+        equation = "$equation!";
+      } else if (btnVal == '√') {
+       if (equation.isEmpty || equation == "0") {
+         equation = btnVal;
+       } else {
+         equation + btnVal;
+       }
+      } else if (btnVal == '(') {
+        equation = equation + btnVal;
+      } else if (btnVal == ')') {
+        equation = equation + btnVal;
+      } else if (btnVal == 'x^y') {
+        equation = "$equation^";
+      } else if (btnVal == '∛') {
+        equation = btnVal;
+      } else if (btnVal == 'log') {
+        equation = btnVal;
+      } else if (btnVal == 'x²') {
+        equation = "$equation²";
+      } else if (btnVal == 'hyp') {
+        // equation = btnVal;
+      } else if (btnVal == 'sin') {
+        equation = btnVal;
+      } else if (btnVal == 'cos') {
+        equation = btnVal;
+      } else if (btnVal == 'tan') {
+        equation = "$btnVal(";
+      } else if (btnVal == 'Ran') {
+        // equation = btnVal;
+      } else if (btnVal == 'In') {
+        // equation = "$btnVal(";
+      } else if (btnVal == 'MS') {
+        memory = equation;
+        equation = "0";
+      } else if (btnVal == 'MC') {
+        // equation = btnVal;
+      } else if (btnVal == 'M-') {
+        equation = btnVal;
+      } else if (btnVal == 'M+') {
+        equation =  btnVal;
+      } else if (btnVal == 'DEG') {
+        equation = "";
+      } else if (btnVal == 'AC') {
+        btnVal = "0";
+        equation = "0";
+        result = "0";
+      } else if (btnVal == 'ON') {
+      } else if (btnVal == '=') {
+        var expression = equation;
+        expression = expression.replaceAll("X", "*");
+        expression = expression.replaceAll("÷", "/");
+        expression = expression.replaceAll("n!", "!");
+        expression = expression.replaceAll("√", "sqrt");
+        expression = expression.replaceAll("²", "^2");
+
+        try {
+          Parser p = Parser();
+          // Expression exp = p.parse("2^2");
+        
+          Expression exp = p.parse(expression);
+          debugPrint(" equation: $equation");
+          debugPrint(" expression: $expression");
+          ContextModel cm = ContextModel();
+          result = "${exp.evaluate(EvaluationType.REAL, cm)}";
+          debugPrint('res: ${exp.evaluate(EvaluationType.REAL, cm)}');
+        } catch (e) {
+          result = "Error";
+        }
+      } else {
+        if (equation == '0') {
+          equation = btnVal;
+        } else {
+          equation = equation + btnVal;
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,60 +116,201 @@ class _CalculatorUiState extends State<CalculatorUi> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          CalculatorScreen(),
+          Container(
+            width: double.maxFinite,
+            height: 100.0,
+            margin: EdgeInsets.fromLTRB(20, 10, 20, 30),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('DEG', style: TextStyle(fontSize: 10.0)),
+                          Text('ON', style: TextStyle(fontSize: 10.0)),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Text(
+                          equation,
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                      Text(result, style: TextStyle(fontSize: 20.0)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 12.0, left: 16.0, right: 16.0,),
+            padding: const EdgeInsets.only(
+              bottom: 12.0,
+              left: 16.0,
+              right: 16.0,
+            ),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right:8.0),
-                  child: LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'DEG', onPress: () {  },),
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: LogicButton(
+                    btnColor: ColorGuide.tertiaryBtn,
+                    btnVal: 'DEG',
+                    buttonPress: btnOnClick,
+                  ),
                 ),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'CLS', onPress: () {  },),
-                Spacer(flex: 1,),                
-                LogicButton(btnColor: ColorGuide.tertiaryBtn, btnVal: 'ON', onPress: () {  },),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'CLS',
+                  buttonPress: btnOnClick,
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.tertiaryBtn,
+                  btnVal: 'ON',
+                  buttonPress: btnOnClick,
+                ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 12.0, left: 10.0, right: 10.0,),
+            padding: const EdgeInsets.only(
+              bottom: 12.0,
+              left: 10.0,
+              right: 10.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'n!', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sqrt', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '(', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: ')', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: '^', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cbrt', onPress: () {  },),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'n!',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: '√',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: '(',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: ')',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'x^y',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: '∛',
+                  buttonPress: btnOnClick,
+                ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 12.0, left: 10.0, right: 10.0,),
+            padding: const EdgeInsets.only(
+              bottom: 12.0,
+              left: 10.0,
+              right: 10.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'log', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'x2', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'hyp', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'sin', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'cos', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'tan', onPress: () {  },),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'log',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'x²',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'hyp',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'sin',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'cos',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'tan',
+                  buttonPress: btnOnClick,
+                ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16.0, left: 10.0, right: 10.0,),
+            padding: const EdgeInsets.only(
+              bottom: 16.0,
+              left: 10.0,
+              right: 10.0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'Ran', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'In', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MS', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'MC', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M-', onPress: () {  },),
-                LogicButton(btnColor: ColorGuide.secondaryBtn, btnVal: 'M+', onPress: () {  },),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'Ran',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'In',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'MS',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'MC',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'M-',
+                  buttonPress: btnOnClick,
+                ),
+                LogicButton(
+                  btnColor: ColorGuide.secondaryBtn,
+                  btnVal: 'M+',
+                  buttonPress: btnOnClick,
+                ),
               ],
             ),
           ),
@@ -86,23 +321,28 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '7', onPress: () {  },
+                  btnVal: '7',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '8', onPress: () {  },
+                  btnVal: '8',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '9', onPress: () {  },
+                  btnVal: '9',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.tertiaryBtn,
-                  btnVal: 'DEL', onPress: () {  },
+                  btnVal: 'DEL',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.tertiaryBtn,
-                  btnVal: 'AC', onPress: () {  },
+                  btnVal: 'AC',
+                  buttonPress: btnOnClick,
                 ),
               ],
             ),
@@ -114,23 +354,28 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '4', onPress: () {  },
+                  btnVal: '4',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '5', onPress: () {  },
+                  btnVal: '5',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '6', onPress: () {  },
+                  btnVal: '6',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'X', onPress: () {  },
+                  btnVal: 'x',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '/', onPress: () {  },
+                  btnVal: '÷',
+                  buttonPress: btnOnClick,
                 ),
               ],
             ),
@@ -142,23 +387,28 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '1', onPress: () {  },
+                  btnVal: '1',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '2', onPress: () {  },
+                  btnVal: '2',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '3', onPress: () {  },
+                  btnVal: '3',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '+', onPress: () {  },
+                  btnVal: '+',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '-', onPress: () {  },
+                  btnVal: '-',
+                  buttonPress: btnOnClick,
                 ),
               ],
             ),
@@ -170,23 +420,28 @@ class _CalculatorUiState extends State<CalculatorUi> {
               children: [
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '0', onPress: () {  },
+                  btnVal: '0',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '.', onPress: () {  },
+                  btnVal: '.',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'Exp', onPress: () {  },
+                  btnVal: 'Exp',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: 'Ans', onPress: () {  },
+                  btnVal: 'Ans',
+                  buttonPress: btnOnClick,
                 ),
                 CalculatorButton(
                   btnColor: ColorGuide.primaryBtn,
-                  btnVal: '=', onPress: () {  },
+                  btnVal: '=',
+                  buttonPress: btnOnClick,
                 ),
               ],
             ),
